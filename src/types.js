@@ -7,17 +7,29 @@
 
 export type Element = string | React$Element<any> | Array<React$Element<any>>
 
+export type Event = {
+  id: number,
+  type: string,
+  attributes: {
+    cron: string,
+    name: string
+  }
+}
+
 // ACTIONS
 export type Init = { type: '@@INIT' }
-export type ClickedButton = { type: 'CLICKED_BUTTON' }
+export type FetchEvents= {
+  type: 'FETCHED_EVENTS',
+  events: Array<Event>
+}
 
 export type AnyAction =
   Init |
-  ClickedButton
+  FetchEvents
 
 // STATES
-export type ButtonClickState = number
+export type eventsState = Array<Event>
 
 export type State = {
-  buttonClicks: ButtonClickState
+  events: eventsState
 }

@@ -1,9 +1,9 @@
 // @flow
 import { combineReducers } from 'redux'
-import buttonClicks from './button-clicks'
+import events from './events'
 
 const rootReducer = combineReducers({
-  buttonClicks
+  events
 })
 
 export default rootReducer

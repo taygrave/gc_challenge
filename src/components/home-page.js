@@ -3,29 +3,31 @@ import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
-import { clickButton } from '../actions'
+import { fetchEvents } from '../actions'
+import Events from './events'
+
+import { type Event } from '../types'
 
 type HomeProps = {
-  buttonClicks: number,
-  clickButton: typeof clickButton
+  events: Array<Event>,
+  fetchEvents: typeof fetchEvents
 }
 
 class HomePage extends Component<HomeProps> {
   render () {
     const {
-      buttonClicks,
-      clickButton
+      events,
+      fetchEvents
     } = this.props
 
     return (
       <div className='home-page'>
-        <h1>Customized Starter Template</h1>
-        <Button bsStyle='info' onClick={clickButton}>
-          Click Me To Fire an Action
-        </Button>
-        {buttonClicks > 0
-          ? <div>You clicked the button {buttonClicks} times!</div>
-          : null
+        <h1>Grove Scheduler</h1>
+        {events.length === 0
+          ? <Button bsStyle='info' onClick={fetchEvents}>
+            Get My Events
+          </Button>
+          : <Events events={events} />
         }
       </div>
     )
@@ -36,9 +38,9 @@ export const Unconnected = HomePage
 
 export default connect(
   (state) => ({
-    buttonClicks: state.buttonClicks
+    events: state.events
   }),
   {
-    clickButton
+    fetchEvents
   }
 )(HomePage)

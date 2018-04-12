@@ -30,6 +30,9 @@
   "author": "taygrave",
   "license": "NA",
   "dependencies": {
+    "axios": "0.18.0",
+    "cron-parser": "2.4.5",
+    "moment": "2.22.0",
     "object-assign": "4.1.0",
     "react": "16.0.0",
     "react-bootstrap": "0.32.1",

@@ -1,3 +1,3 @@
 // @flow
 
-export * from './click-button'
+export * from './events'
