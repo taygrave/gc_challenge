@@ -8,12 +8,16 @@
 export type Element = string | React$Element<any> | Array<React$Element<any>>
 
 export type Event = {
-  id: number,
-  type: string,
   attributes: {
     cron: string,
     name: string
-  }
+  },
+  hasHappened3Hours: boolean,
+  id: number,
+  isIn24Hours: boolean,
+  recent: string,
+  type: string,
+  upcoming: string
 }
 
 // ACTIONS

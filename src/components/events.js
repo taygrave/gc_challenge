@@ -1,6 +1,4 @@
 // @flow
-import parser from 'cron-parser'
-import moment from 'moment'
 import React from 'react'
 import { Table } from 'react-bootstrap'
 
@@ -10,36 +8,31 @@ type Props = {
   events: Array<Event>
 }
 
-const formatTime = (date: string) => moment(date).format('l - LT')
-
-const renderEvent = (event: Event, now: moment) => {
+const renderEvent = (event: Event) => {
   const {
     attributes: {
-      cron,
       name
     },
+    hasHappened3Hours,
     id,
-    type
+    isIn24Hours,
+    recent,
+    type,
+    upcoming
   } = event
-  const parsedCron = parser.parseExpression(cron)
-  const next = parsedCron.next().toString()
-  const previous = parsedCron.prev().toString()
-  const isIn24Hours = moment(next).diff(now, 'hours') <= 24
-  const hasHappened3Hours = now.diff(previous, 'hours') <= 3
 
   return (
     <tr className='event' key={id}>
       <td>{type.charAt(0).toUpperCase() + type.slice(1)}</td>
       <td>{name}</td>
-      <td className={hasHappened3Hours ? 'recent' : ''}>{formatTime(previous)}</td>
-      <td className={isIn24Hours ? 'upcoming' : ''}>{formatTime(next)}</td>
+      <td className={hasHappened3Hours ? 'recent' : ''}>{recent}</td>
+      <td className={isIn24Hours ? 'upcoming' : ''}>{upcoming}</td>
     </tr>
   )
 }
 
 const Events = (props: Props) => {
   const { events } = props
-  const now = moment()
 
   return (
     <div className='events'>
@@ -58,7 +51,7 @@ const Events = (props: Props) => {
           </tr>
         </thead>
         <tbody>
-          {events.map(event => renderEvent(event, now))}
+          {events.map(event => renderEvent(event))}
         </tbody>
       </Table>
     </div>

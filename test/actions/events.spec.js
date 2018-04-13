@@ -4,6 +4,7 @@ import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 import { fetchEvents } from '../../src/actions'
+import { mockEvents } from '../mockEvents'
 
 const mockData = {
   data: [
@@ -30,6 +31,38 @@ const mockData = {
         cron: '30 7 * * 1',
         name: 'Water Sunny the Succulent'
       }
+    },
+    {
+      id: 3,
+      type: 'task',
+      attributes: {
+        cron: '0 12 * * 3',
+        name: 'Lunch with Mrs. Meyers'
+      }
+    },
+    {
+      id: 4,
+      type: 'task',
+      attributes: {
+        cron: '0 14 * *',
+        name: 'Farmers Market'
+      }
+    },
+    {
+      id: 5,
+      type: 'task',
+      attributes: {
+        cron: '15 7 * * 1-5',
+        name: 'Make coffee'
+      }
+    },
+    {
+      id: 6,
+      type: 'task',
+      attributes: {
+        cron: '0 6-22 * * *',
+        name: 'Stretch and get water'
+      }
     }
   ]
 }
@@ -45,13 +78,15 @@ jest.mock('axios', () => {
 const mockStore = configureStore([ thunk ])
 
 describe('Actions: Events', () => {
-  it('fetchEvents dispatches', async () => {
+  it('fetchEvents dispatches and parses and formats event data', async () => {
+    // NOTE: this test may fail currently due to cron parsing on particular dates
+    // TODO Extricate the data parsing and formatting into a separate util function that can be properly tested on any date
     const store = mockStore({})
     const expected = [
       { type: 'FETCH_EVENTS' },
       {
         type: 'FETCHED_EVENTS',
-        events: mockData.data
+        events: mockEvents
       }
     ]
 

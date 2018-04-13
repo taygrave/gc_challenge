@@ -7,6 +7,7 @@ import sinon from 'sinon'
 
 import { Unconnected as HomePage } from '../../src/components/home-page'
 import Events from '../../src/components/events'
+import { mockEvents } from '../mockEvents'
 
 describe('HomePage', () => {
   const defaultActions = {
@@ -16,6 +17,7 @@ describe('HomePage', () => {
   const render = (props) => {
     const withDefaults = {
       events: [],
+      upcomingCount: 0,
       ...defaultActions,
       ...props
     }
@@ -33,14 +35,7 @@ describe('HomePage', () => {
 
   it('renders w/ GmailPage if signed in', () => {
     const wrapper = render({
-      events: [{
-        id: 0,
-        type: 'task',
-        attributes: {
-          cron: '0 7 14 3 *',
-          name: 'Repot Sunny the Succulent'
-        }
-      }]
+      events: mockEvents
     })
 
     assert(!wrapper.find(Button).exists())

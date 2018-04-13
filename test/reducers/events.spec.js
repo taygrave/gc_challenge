@@ -1,36 +1,11 @@
 // @flow
 import assert from 'assert'
 
-import reducer from '../../src/reducers/events'
+import reducer, { getUpcomingEventCount } from '../../src/reducers/events'
+import { mockEvents } from '../mockEvents'
 
 describe('Reducers: Events', () => {
   const initialState = []
-  const mockEvents = [
-    {
-      id: 0,
-      type: 'task',
-      attributes: {
-        cron: '0 7 14 3 *',
-        name: 'Repot Sunny the Succulent'
-      }
-    },
-    {
-      id: 1,
-      type: 'task',
-      attributes: {
-        cron: '0 18 20 * *',
-        name: 'Pick up Grove order from mailroom'
-      }
-    },
-    {
-      id: 2,
-      type: 'task',
-      attributes: {
-        cron: '30 7 * * 1',
-        name: 'Water Sunny the Succulent'
-      }
-    }
-  ]
 
   it('should return the initial state on @@INIT', () => {
     assert.deepEqual(
@@ -49,5 +24,9 @@ describe('Reducers: Events', () => {
       reducer(initialState, action),
       mockEvents
     )
+  })
+
+  it('getUpcomingEventCount should count correctly', () => {
+    assert.equal(getUpcomingEventCount(mockEvents), 2)
   })
 })
