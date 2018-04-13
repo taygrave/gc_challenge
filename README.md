@@ -11,3 +11,6 @@ This is a proposed solution to the [technical challenge for Grove Collaboration]
 - **Install packages**. `npm i`
 - **Run the example app**. `npm start`
 - **Go!** Click the 'Get My Events' button and take a look! Don't miss that notification!
+- **Test** `npm test` There are 8 tests, I expect 7 or 8 to pass depending on when they are run:
+  - The test for `...actions/events` may fail due to cron parsing as the mock event data is currently hardcoded, I left [a comment with a future 'TODO'](https://github.com/taygrave/gc_challenge/blob/master/test/actions/events.spec.js#L83) as to how this should be fixed should this project move forward.
+  - PS. I expect a console warning about a deprecation for `moment.js`
